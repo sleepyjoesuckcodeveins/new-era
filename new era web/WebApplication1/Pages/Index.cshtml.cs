@@ -13,22 +13,27 @@ public class IndexModel : PageModel
      private NeweraProductService productService;
      public List<Product> Products { get; set; }
 
+    [BindProperty]
+    public string searchterm { get; set; }
+
+
+    public IndexModel(NeweraProductService productService)
+    {
+        this.productService = productService;
+    }
     public IndexModel()
     {
-        string connectionString ="Data Source=mssqlstud.fhict.local;Persist Security Info=True;User ID=dbi578294_newworld;Password=newworld;Pooling=False;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;";
-        IProduct product = new NewEraProducts(connectionString);
-        productService = new NeweraProductService(product);
-        
+        searchterm = string.Empty;
     }
+
     public void OnGet()
     {
-        productService.GetAllProducts();
         Products = productService.GetAllProducts();
     }
 
 
     public void OnPost()
     {
-
+        Products = productService.SearchProduct(searchterm ?? string.Empty);
     }
 }

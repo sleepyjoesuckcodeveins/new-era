@@ -6,6 +6,8 @@ public interface IProduct
     public List<Product> getAllProducts();
 
     public Product? getProductById(int id);
+
+    public List<Product> searchProduct(string name);
     
    
 }

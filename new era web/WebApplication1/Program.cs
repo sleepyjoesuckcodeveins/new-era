@@ -4,7 +4,10 @@ using NewEra.Dal;
   
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddScoped<IProduct, NewEraProducts>();
+
+string connectionString = "Server=mssqlstud.fhict.local;Database=dbi578294_newworld;User Id=dbi578294_newworld;Password=newworld;TrustServerCertificate=True;";
+
+builder.Services.AddScoped<IProduct>(_ => new NewEraProducts(connectionString));
 builder.Services.AddScoped<NeweraProductService>();
 
 // Add services to the container.

@@ -25,5 +25,9 @@ public class NeweraProductService
     {
         _productRepository.getProductByname(name);
     }
+    public List<Product> SearchProduct(string name)
+    {
+        return _productRepository.searchProduct(name);
+    }
 
 }

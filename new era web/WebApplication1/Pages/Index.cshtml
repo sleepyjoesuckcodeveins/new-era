@@ -3,10 +3,19 @@
 @{
     ViewData["Title"] = "Home page";
 }
+<form class="row g-3" method = "post">
+  <div class="col-auto">
+    <label for="name" class="form-label">search bar</label>
+    <input type="text" class="form-control" id="name" placeholder="name or category" asp-for="searchterm">
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary mb-3">Search</button>
+  </div>
+</form>
 <div class = "container, text-center">
     <h1 class = "display-4">Welcome to New Era Web!</h1>
     <p class = "lead">This is a simple ASP.NET Core web application.</p>
-    div class = "row">
+   <div class = "row">
         <div class = "col-md-6">
             <h2>Product</h2>
             @foreach (var product in Model.Products)
@@ -20,4 +29,5 @@
                 </div>
             }
         </div>
+    </div>
 </div>
