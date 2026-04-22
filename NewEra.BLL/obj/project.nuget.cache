@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "6UzsNSU9CJ0=",
+  "dgSpecHash": "B+ET9WsMBxc=",
   "success": true,
   "projectFilePath": "C:\\Users\\nathan\\new era\\NewEra.BLL\\NewEra.BLL.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\nathan\\.nuget\\packages\\fuzzysharp\\2.0.2\\fuzzysharp.2.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

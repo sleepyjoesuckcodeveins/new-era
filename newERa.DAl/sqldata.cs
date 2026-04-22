@@ -65,30 +65,8 @@ public class NewEraProducts: IProduct
     
     public List<Product> searchProduct(string name)
     {
-        List<Product> products = new List<Product>();
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            connection.Open();
-            string query = "SELECT Id, Product, Price FROM newworld_MockData WHERE Product LIKE @Name";
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@Name", "%" + name + "%");
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Product product = new Product
-                        {
-                            Id = reader.GetInt32(0),
-                            Name = reader.GetString(1),
-                            Price = reader.GetDecimal(2)
-                        };
-                        products.Add(product);
-                    }
-                }
-            }
-        }
-        return products;
+        // Code to search for products by name in the database using _connectionString
+       throw new NotImplementedException(); // Placeholder for search product implementation
     }
 
 }

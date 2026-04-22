@@ -13,22 +13,21 @@ public class IndexModel : PageModel
      private NeweraProductService productService;
      public List<Product> Products { get; set; }
 
-    [BindProperty]
-    public string searchterm { get; set; }
+    [BindProperty(SupportsGet = true)]
+    public string searchterm { get; set; } = string.Empty;
 
 
     public IndexModel(NeweraProductService productService)
     {
         this.productService = productService;
     }
-    public IndexModel()
-    {
-        searchterm = string.Empty;
-    }
+   
 
     public void OnGet()
     {
-        Products = productService.GetAllProducts();
+            Products = string.IsNullOrWhiteSpace(searchterm)
+            ? productService.GetAllProducts()
+            : productService.SearchProduct(searchterm);
     }
 
 
