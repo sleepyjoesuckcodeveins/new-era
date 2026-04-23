@@ -30,4 +30,22 @@ public class UnitTest1
         System.Console.WriteLine($"Test passed: Found product - {result[0].Name} with price {result[0].Price}");
         
     }
+   [Fact]
+public void SearchProduct_WithInvalidName_ThrowsException()
+{
+    var mockProductRepository = new Mock<IProduct>();
+    mockProductRepository.Setup(repo => repo.getAllProducts()).Returns(new List<Product>
+    {
+        new Product { Id = 1, Name = "Apple", Price = 0.99m },
+        new Product { Id = 2, Name = "Banana", Price = 0.59m },
+        new Product { Id = 3, Name = "Orange", Price = 0.79m }
+    });
+
+    var productService = new NeweraProductService(mockProductRepository.Object);
+
+    var ex = Assert.Throws<Exception>(() => productService.SearchProduct("carrot"));
+    Assert.Equal("No products found with the given name.", ex.Message);
+    System.Console.WriteLine("Test passed: Exception thrown as expected with message - " + ex.Message);
+}
+
 }

@@ -16,6 +16,14 @@
           "WebApplication1.dll": {}
         }
       },
+      "FuzzySharp/2.0.2": {
+        "runtime": {
+          "lib/netcoreapp2.1/FuzzySharp.dll": {
+            "assemblyVersion": "1.0.4.0",
+            "fileVersion": "1.0.4.0"
+          }
+        }
+      },
       "Microsoft.Bcl.Cryptography/9.0.13": {
         "runtime": {
           "lib/net9.0/Microsoft.Bcl.Cryptography.dll": {
@@ -252,6 +260,7 @@
       },
       "NewEra.BLL/1.0.0": {
         "dependencies": {
+          "FuzzySharp": "2.0.2",
           "NewEra.Domain": "1.0.0"
         },
         "runtime": {
@@ -276,6 +285,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "FuzzySharp/2.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-sBKqWxw3g//peYxDZ8JipRlyPbIyBtgzqBVA5GqwHVeqtIrw75maGXAllztf+1aJhchD+drcQIgf2mFho8ZV8A==",
+      "path": "fuzzysharp/2.0.2",
+      "hashPath": "fuzzysharp.2.0.2.nupkg.sha512"
     },
     "Microsoft.Bcl.Cryptography/9.0.13": {
       "type": "package",

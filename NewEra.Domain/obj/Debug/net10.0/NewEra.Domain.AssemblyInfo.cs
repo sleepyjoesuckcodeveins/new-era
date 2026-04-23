@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NewEra.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+83ddbf064ad4b9e960d20067d0b6dcdb701fa1e2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5984acaf3c18834d46b8709dcc1c5b06b5782e90")]
 [assembly: System.Reflection.AssemblyProductAttribute("NewEra.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NewEra.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

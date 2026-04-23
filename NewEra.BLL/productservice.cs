@@ -42,10 +42,7 @@ public class NeweraProductService
         .Select(r => r.Product)
         .ToList();
         
-        if (matchingProducts.Count == 0)
-        {
-            throw new Exception("No products found with the given name.");
-        }
+
 
         return matchingProducts;
     }
