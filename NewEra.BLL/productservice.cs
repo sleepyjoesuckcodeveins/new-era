@@ -22,9 +22,13 @@ public class NeweraProductService
         return _productRepository.getProductById(id);
     }
 
-    public void GetProductByName(string name)
+    public Product? GetProductByName(string name)
     {
         _productRepository.getProductByname(name);
+    }
+    public Product? GetProductByCategory(string category)
+    {
+        return _productRepository.getProductBycategory(category);
     }
     public List<Product> SearchProduct(string name)
     {    

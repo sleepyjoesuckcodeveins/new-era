@@ -1,0 +1,59 @@
+﻿@page
+@model CategoryModel
+@{
+    ViewData["Title"] = "Category page";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>select the category of the items.</p>
+
+//side bar for categories
+<div class="sidebar">
+    <ul>
+        <li><a href="/category?category=electronics">Electronics</a></li>
+        <li><a href="/category?category=clothing">Clothing</a></li>
+        <li><a href="/category?category=home">Home</a></li>
+        <li><a href="/category?category=books">Books</a></li>
+    </ul>
+</div>
+
+<div class="container py-4">
+    <div class="text-center mb-4">
+        <h1 class="display-5 fw-semibold">Welcome to New Era Web</h1>
+        <p class="lead mb-0">Browse products and search by name or category.</p>
+    </div>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-12 col-md-10 col-lg-8">
+    
+        </div>
+    </div>
+
+    <div class="row g-3">
+        @if (Model.Products != null && Model.Products.Count > 0)
+        {
+            @foreach (var product in Model.Products)
+            {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title mb-1">@product.Name</h5>
+                            <p class="text-muted mb-2">@product.Category</p>
+                            <p class="card-text mb-0"><strong>Price:</strong> $@product.Price.ToString("0.00")</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-light border text-center mb-0">
+                    No products found.
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
