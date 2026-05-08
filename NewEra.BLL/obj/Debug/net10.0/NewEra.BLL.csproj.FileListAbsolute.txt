@@ -1,0 +1,16 @@
+C:\Users\nathan\new era\NewEra.BLL\bin\Debug\net10.0\NewEra.BLL.deps.json
+C:\Users\nathan\new era\NewEra.BLL\bin\Debug\net10.0\NewEra.BLL.dll
+C:\Users\nathan\new era\NewEra.BLL\bin\Debug\net10.0\NewEra.BLL.pdb
+C:\Users\nathan\new era\NewEra.BLL\bin\Debug\net10.0\NewEra.Domain.dll
+C:\Users\nathan\new era\NewEra.BLL\bin\Debug\net10.0\NewEra.Domain.pdb
+C:\Users\nathan\new era\NewEra.BLL\obj\Debug\net10.0\NewEra.BLL.csproj.AssemblyReference.cache
+C:\Users\nathan\new era\NewEra.BLL\obj\Debug\net10.0\NewEra.BLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nathan\new era\NewEra.BLL\obj\Debug\net10.0\NewEra.BLL.AssemblyInfoInputs.cache
+C:\Users\nathan\new era\NewEra.BLL\obj\Debug\net10.0\NewEra.BLL.AssemblyInfo.cs
+C:\Users\nathan\new era\NewEra.BLL\obj\Debug\net10.0\NewEra.BLL.csproj.CoreCompileInputs.cache
+C:\Users\nathan\new era\NewEra.BLL\obj\Debug\net10.0\NewEra.BLL.sourcelink.json
+C:\Users\nathan\new era\NewEra.BLL\obj\Debug\net10.0\NewEra.BLL.csproj.Up2Date
+C:\Users\nathan\new era\NewEra.BLL\obj\Debug\net10.0\NewEra.BLL.dll
+C:\Users\nathan\new era\NewEra.BLL\obj\Debug\net10.0\refint\NewEra.BLL.dll
+C:\Users\nathan\new era\NewEra.BLL\obj\Debug\net10.0\NewEra.BLL.pdb
+C:\Users\nathan\new era\NewEra.BLL\obj\Debug\net10.0\ref\NewEra.BLL.dll
