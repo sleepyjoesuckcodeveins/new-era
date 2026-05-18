@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NewEra.BLL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7a86fe90497fd28321af771892b2d9b6d82f8399")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8e5a26d99b852f7f836fb039991a3d19e0b75774")]
 [assembly: System.Reflection.AssemblyProductAttribute("NewEra.BLL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NewEra.BLL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
