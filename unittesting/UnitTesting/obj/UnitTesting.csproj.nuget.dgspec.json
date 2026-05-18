@@ -58,6 +58,10 @@
             "FuzzySharp": {
               "target": "Package",
               "version": "[2.0.2, )"
+            },
+            "Stripe.net": {
+              "target": "Package",
+              "version": "[51.1.0, )"
             }
           },
           "imports": [

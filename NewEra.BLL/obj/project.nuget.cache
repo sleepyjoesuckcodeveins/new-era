@@ -1,10 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "MwCdAuNoEA4=",
+  "dgSpecHash": "sW++UhxeAVY=",
   "success": true,
   "projectFilePath": "C:\\Users\\nathan\\new era\\NewEra.BLL\\NewEra.BLL.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\nathan\\.nuget\\packages\\fuzzysharp\\2.0.2\\fuzzysharp.2.0.2.nupkg.sha512"
+    "C:\\Users\\nathan\\.nuget\\packages\\fuzzysharp\\2.0.2\\fuzzysharp.2.0.2.nupkg.sha512",
+    "C:\\Users\\nathan\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\nathan\\.nuget\\packages\\stripe.net\\51.1.0\\stripe.net.51.1.0.nupkg.sha512",
+    "C:\\Users\\nathan\\.nuget\\packages\\system.configuration.configurationmanager\\9.0.0\\system.configuration.configurationmanager.9.0.0.nupkg.sha512",
+    "C:\\Users\\nathan\\.nuget\\packages\\system.diagnostics.eventlog\\9.0.0\\system.diagnostics.eventlog.9.0.0.nupkg.sha512",
+    "C:\\Users\\nathan\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.0\\system.security.cryptography.protecteddata.9.0.0.nupkg.sha512"
   ],
   "logs": []
 }
