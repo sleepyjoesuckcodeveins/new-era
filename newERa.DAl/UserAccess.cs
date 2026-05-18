@@ -11,24 +11,63 @@ public class UserAccess : IUserManagement
     {
         _connectionString = connectionString;
     }
+
     public void RegisterUser(User user)
     {
         // Code to register a new user in the database using _connectionString
-        using (SqlConnection connection = new SqlConnection(_connectionString))
+        string query = "INSERT INTO UserTable (Username, Password, Email, Role) VALUES (@Username, @Password, @Email, @Role)";
+        ExecuteNonReadableQuery(_connectionString, query, cmd =>
         {
-            connection.Open();
-            string query = "INSERT INTO Users (Username, Password, Email, Role) VALUES (@Username, @Password, @Email, @Role)";
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@Username", user.Username);
-                command.Parameters.AddWithValue("@Password", user.Password);
-                command.Parameters.AddWithValue("@Email", user.Email);
-                command.Parameters.AddWithValue("@Role", user.Role);
-                command.ExecuteNonQuery();
-            }
+            cmd.Parameters.AddWithValue("@Username", user.Username);
+            cmd.Parameters.AddWithValue("@Password", user.Password);
+            cmd.Parameters.AddWithValue("@Email", user.Email);
+            cmd.Parameters.AddWithValue("@Role", user.Role);
+        });
+    }
+
+    public User? GetUser(User user)
+    {
+        // Code to retrieve a user from the database using _connectionString
+        string query = "SELECT Id, Username, Password, Email, Role FROM UserTable WHERE Username = @Username";
+        // Implementation to execute the query and populate the user object
+        return ExecuteSqlQuery(_connectionString, query, reader => new User
+        {
+            Id = reader.GetInt32(0),
+            Username = reader.GetString(1),
+            Password = reader.GetString(2),
+            Email = reader.GetString(3),
+            Role = reader.GetString(4)
+        });
+    }
+
+
+    private void ExecuteNonReadableQuery(string connectionString, string query, Action<SqlCommand> parameterize)
+    {
+        using (SqlConnection conn = new SqlConnection(connectionString))
+        using (SqlCommand cmd = new SqlCommand(query, conn))
+        {
+            parameterize(cmd);
+            conn.Open();
+            cmd.ExecuteNonQuery();
         }
     }
-    public 
+    private User? ExecuteSqlQuery(string connectionString, string query, Func<SqlDataReader, User> map)
+    {
+        using (SqlConnection conn = new SqlConnection(connectionString))
+        using (SqlCommand cmd = new SqlCommand(query, conn))
+        {
+            cmd.Parameters.AddWithValue("@Username", query); // Assuming the query has a parameter for username
+            conn.Open();
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    return map(reader);
+                }
+            }
+        }
+        return null;
+    }    
 
 
 }

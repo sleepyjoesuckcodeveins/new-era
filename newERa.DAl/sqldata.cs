@@ -12,7 +12,7 @@ public class NewEraProducts: IProduct
         _connectionString = connectionString;
     }
 
-    public static List<T> SqlQuery<T>(string connectionString, string query, Func<SqlDataReader, T> map)
+    public static List<T> ReadableSqlQuery<T>(string connectionString, string query, Func<SqlDataReader, T> map)
     {
         List<T> results = new List<T>();
 
@@ -37,7 +37,7 @@ public class NewEraProducts: IProduct
         // Code to retrieve all products from the database using _connectionString
     string query = "SELECT Id, Product, Price FROM newworld_MockData";
 
-    return SqlQuery(_connectionString, query, reader => new Product
+    return ReadableSqlQuery(_connectionString, query, reader => new Product
         {
             Id = reader.GetInt32(0),
             Name = reader.GetString(1),
