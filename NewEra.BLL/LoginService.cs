@@ -16,7 +16,15 @@ public class LoginService
     {
         var user = new User { Username = username, Password = password };
         var existingUser = _userManagement.GetUser(user);
-        return existingUser != null;
+
+        if (existingUser == null || existingUser.Password != password)
+        {
+            return false; // Login failed
+        } else
+        {
+            return true; // Login successful
+        }  
+  
     }
 
     public void Register(string username, string password, string email, string role)

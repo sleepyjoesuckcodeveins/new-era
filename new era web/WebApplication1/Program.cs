@@ -9,6 +9,8 @@ string connectionString = "Server=mssqlstud.fhict.local;Database=dbi578294_newwo
 
 builder.Services.AddScoped<IProduct>(_ => new NewEraProducts(connectionString));
 builder.Services.AddScoped<NeweraProductService>();
+builder.Services.AddScoped<LoginService>();
+builder.Services.AddScoped<IUserManagement, UserAccess>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();

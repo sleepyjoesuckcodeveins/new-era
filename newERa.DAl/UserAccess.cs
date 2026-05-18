@@ -2,7 +2,7 @@ using NewEra.Domain.Interface;
 using NewEra.Domain.Models;
 using Microsoft.Data.SqlClient;
 
-namespace NewEra.DAL;
+namespace NewEra.Dal;
 public class UserAccess : IUserManagement
 {
     private readonly string _connectionString;
