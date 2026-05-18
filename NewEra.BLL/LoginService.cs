@@ -12,9 +12,9 @@ public class LoginService
         _userManagement = userManagement;
     }
 
-    public bool Login(string username, string password)
+    public bool Login(string email, string password)
     {
-        var user = new User { Username = username, Password = password };
+        var user = new User { Email = email, Password = password };
         var existingUser = _userManagement.GetUser(user);
 
         if (existingUser == null || existingUser.Password != password)

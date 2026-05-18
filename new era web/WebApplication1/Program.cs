@@ -1,6 +1,7 @@
 using NewEra.Domain.Interface;
 using NewEra.BLL;
 using NewEra.Dal;
+using Microsoft.AspNetCore.Authentication.Cookies;
   
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,16 @@ string connectionString = "Server=mssqlstud.fhict.local;Database=dbi578294_newwo
 builder.Services.AddScoped<IProduct>(_ => new NewEraProducts(connectionString));
 builder.Services.AddScoped<NeweraProductService>();
 builder.Services.AddScoped<LoginService>();
-builder.Services.AddScoped<IUserManagement, UserAccess>();
+
+// In Program.cs
+builder.Services.AddScoped<IUserManagement>(provider => 
+    new UserAccess(connectionString));
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+{
+    options.LoginPath = new PathString("/Login");
+    options.AccessDeniedPath = new PathString("/Index");
+});
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -29,7 +39,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseRouting();
-
+    
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

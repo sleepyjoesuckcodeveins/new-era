@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using NewEra.Domain.Interface;
 using NewEra.Domain.Models;
 using NewEra.BLL;
-using NewEra.Dal;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace WebApplication1.Pages;
 
+[Authorize( Roles = "Admin,User")]
 public class IndexModel : PageModel
 {
      private NeweraProductService productService;

@@ -28,7 +28,7 @@ public class UserAccess : IUserManagement
     public User? GetUser(User user)
     {
         // Code to retrieve a user from the database using _connectionString
-        string query = "SELECT Id, Username, Password, Email, Role FROM UserTable WHERE Username = @Username";
+        string query = "SELECT Id, Username, Password, Email, Role FROM UserTable WHERE Email = @Email";
         // Implementation to execute the query and populate the user object
         return ExecuteSqlQuery(_connectionString, query, reader => new User
         {
@@ -37,7 +37,7 @@ public class UserAccess : IUserManagement
             Password = reader.GetString(2),
             Email = reader.GetString(3),
             Role = reader.GetString(4)
-        });
+        }, user);
     }
 
 
@@ -51,12 +51,12 @@ public class UserAccess : IUserManagement
             cmd.ExecuteNonQuery();
         }
     }
-    private User? ExecuteSqlQuery(string connectionString, string query, Func<SqlDataReader, User> map)
+    private User? ExecuteSqlQuery(string connectionString, string query, Func<SqlDataReader, User> map, User user)
     {
         using (SqlConnection conn = new SqlConnection(connectionString))
         using (SqlCommand cmd = new SqlCommand(query, conn))
         {
-            cmd.Parameters.AddWithValue("@Username", query); // Assuming the query has a parameter for username
+            cmd.Parameters.AddWithValue("@Email", user.Email); // Assuming the query has a parameter for email
             conn.Open();
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
