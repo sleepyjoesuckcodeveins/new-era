@@ -11,32 +11,38 @@ public class NewEraProducts: IProduct
     {
         _connectionString = connectionString;
     }
-   public List<Product> getAllProducts()
+
+    public static List<T> SqlQuery<T>(string connectionString, string query, Func<SqlDataReader, T> map)
     {
-        // Code to retrieve all products from the database using _connectionString
-        List<Product> products = new List<Product>();
-        using (SqlConnection connection = new SqlConnection(_connectionString))
+        List<T> results = new List<T>();
+
+        using (SqlConnection conn = new SqlConnection(connectionString))
+        using (SqlCommand cmd = new SqlCommand(query, conn))
         {
-            connection.Open();
-            string query = "SELECT Id, Product, Price FROM newworld_MockData";
-            using (SqlCommand command = new SqlCommand(query, connection))
+            conn.Open();
+            using (SqlDataReader reader = cmd.ExecuteReader())
             {
-                using (SqlDataReader reader = command.ExecuteReader())
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        Product product = new Product
-                        {
-                            Id = reader.GetInt32(0),
-                            Name = reader.GetString(1),
-                            Price = reader.GetDecimal(2)
-                        };
-                        products.Add(product);
-                    }
+                    results.Add(map(reader));
                 }
             }
         }
-        return products; // Return the list of products
+
+        return results;
+    }
+
+   public List<Product> getAllProducts()
+    {
+        // Code to retrieve all products from the database using _connectionString
+    string query = "SELECT Id, Product, Price FROM newworld_MockData";
+
+    return SqlQuery(_connectionString, query, reader => new Product
+        {
+            Id = reader.GetInt32(0),
+            Name = reader.GetString(1),
+            Price = reader.GetDecimal(2)
+        });    
     }
     public void getProductByname(string name)
     {
