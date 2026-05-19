@@ -4,8 +4,6 @@ namespace NewEra.Domain.Interface;
 
 public interface IManageCartProduct
 {
-    public void addProduct(Product product);
-    public Cart OrderProducts(List<Cart> cartItems, int userId);   
-    public void updateProduct(Product product);
-    public void deleteProduct(int id);
+    public List<Cart> addProduct(List<Cart> current, Product product, int quantity, int userId);
+    public void deleteProduct(int id, List<Cart> current, int quantity);
 }

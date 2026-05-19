@@ -3,9 +3,9 @@ namespace NewEra.Domain.Models;
 
 public class Cart
 {
-    int Id { get; set; }
-    string ProductName { get; set; }
-     int Quantity { get; set; }
-    decimal TotalPrice { get; set; }
-     int UserId { get; set; }
+    public int Id { get; set; }
+    public string ProductName { get; set; }
+    public int Quantity { get; set; }
+    public decimal TotalPrice { get; set; }
+    public int UserId { get; set; }
 }
