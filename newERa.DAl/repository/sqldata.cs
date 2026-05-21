@@ -77,7 +77,7 @@ public class NewEraProducts: IProduct, ICart
     public Cart SaveOrder(List<Cart> CurrentCart, int userId)
     {
         // Code to process the order for the products in the cart
-        string query = "INSERT INTO Orders (UserId, ProductName, Quantity, TotalPrice) VALUES (@UserId, @ProductName, @Quantity, @TotalPrice)";
+        string query = "INSERT INTO Orders (UserId, ProductName, Quantity, TotalPrice) VALUES (@UserId, @ProductName, @Quantity, @Price)";
         SqlHelper.ExecuteNonReadableQuery(_connectionString, query, cmd =>
         {
             foreach (var item in CurrentCart)
@@ -86,7 +86,7 @@ public class NewEraProducts: IProduct, ICart
                 cmd.Parameters.AddWithValue("@UserId", userId);
                 cmd.Parameters.AddWithValue("@ProductName", item.ProductName);
                 cmd.Parameters.AddWithValue("@Quantity", item.Quantity);
-                cmd.Parameters.AddWithValue("@TotalPrice", item.TotalPrice);
+                cmd.Parameters.AddWithValue("@Price", item.Price);
                 cmd.ExecuteNonQuery();
             }
         });

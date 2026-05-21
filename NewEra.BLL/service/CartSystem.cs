@@ -7,6 +7,24 @@ namespace NewEra.BLL
 {
     public class CartSystem : IManageCartProduct
     {
+        private ICart _cartRepository;
+        public CartSystem(ICart cartRepository)
+         {
+            this._cartRepository = cartRepository;
+         }
+   
+        public void finalizeOrder(List<Cart> currentCart, int userId, bool TransactionSuccess)
+        {
+            if (TransactionSuccess ==  true)
+            {
+                var order = _cartRepository.SaveOrder(currentCart, userId);
+                Console.WriteLine($"Order saved successfully for user {userId} with total price {order.Price}");
+            }
+            else
+            {
+                Console.WriteLine("Transaction failed. Order not saved.");
+            }
+        }
        public List<Cart> addProduct(List<Cart> current, Product product, int quantity, int userId)
         {
             if (current == null)
@@ -20,8 +38,8 @@ namespace NewEra.BLL
             if (existingCartItem != null)
             {
                 existingCartItem.Quantity += quantity;
-                existingCartItem.TotalPrice += product.Price * quantity;
-                Console.WriteLine($"Updated {product.Name} in cart. New quantity: {existingCartItem.Quantity}, New total price: {existingCartItem.TotalPrice}");
+                existingCartItem.Price += product.Price * quantity;
+                Console.WriteLine($"Updated {product.Name} in cart. New quantity: {existingCartItem.Quantity}, New total price: {existingCartItem.Price}");
             }
             else
             {
@@ -29,23 +47,19 @@ namespace NewEra.BLL
                 {
                     ProductName = product.Name,
                     Quantity = quantity,
-                    TotalPrice = product.Price * quantity,
+                    Price = product.Price * quantity,
                     UserId = userId
                 };
 
                 current.Add(newCartItem);
-                Console.WriteLine($"Added {product.Name} to cart. Quantity: {quantity}, Total price: {newCartItem.TotalPrice}");
+                Console.WriteLine($"Added {product.Name} to cart. Quantity: {quantity}, Total price: {newCartItem.Price}");
             }
 
             return current;
         }
 
 
-        public Cart SaveOrder(List<Cart> CurrentCart, int userId)
-        {
-            // Code to process the order for the products in the cart
-            return new Cart(); // Placeholder return statement
-        }
+      
 
     
 
