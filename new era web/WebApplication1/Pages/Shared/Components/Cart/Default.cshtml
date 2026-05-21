@@ -1,0 +1,22 @@
+@model List<NewEra.Domain.Models.Cart>
+
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="cartDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-cart"></i> Cart <span class="badge bg-danger">@Model.Sum(item => item.Quantity)</span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cartDropdown">
+        @if (Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <li><span class="dropdown-item-text">@item.ProductName - @item.Quantity x @item.TotalPrice.ToString("c")</span></li>
+            }
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/Cart">Go to Cart</a></li>
+        }
+        else
+        {
+            <li><span class="dropdown-item-text">Your cart is empty</span></li>
+        }
+    </ul>
+</div>

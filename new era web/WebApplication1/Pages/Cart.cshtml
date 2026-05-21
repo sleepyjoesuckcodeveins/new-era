@@ -1,0 +1,62 @@
+@page
+@model WebApplication1.Pages.CartModel
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<h1>Shopping Cart</h1>
+
+@if (Model.Cart.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price (per item)</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Cart)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.TotalPrice.ToString("c")</td>
+                    <td>
+                        <form method="post" asp-page-handler="UpdateQuantity">
+                            <input type="hidden" name="productName" value="@item.ProductName" />
+                            <input type="number" name="quantity" value="@item.Quantity" class="form-control" style="width: 80px;" />
+                            <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                        </form>
+                    </td>
+                    <td>@item.TotalPrice.ToString("c")</td>
+                    <td>
+                        <form method="post" asp-page-handler="RemoveFromCart">
+                            <input type="hidden" name="productName" value="@item.ProductName" />
+                            <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-end"><strong>Grand Total:</strong></td>
+                <td><strong>@Model.Cart.Sum(i => i.TotalPrice).ToString("c")</strong></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="text-end">
+        <form method="post" asp-page-handler="Checkout">
+            <button type="submit" class="btn btn-success">Checkout</button>
+        </form>
+    </div>
+}
+else
+{
+    <p>Your cart is empty.</p>
+}

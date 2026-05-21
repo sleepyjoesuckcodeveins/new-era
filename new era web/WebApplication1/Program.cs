@@ -16,6 +16,13 @@ builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<IUserManagement>(provider => 
     new UserAccess(connectionString));
 
+builder.Services.AddScoped<ICart>(provider => 
+    new NewEraProducts(connectionString));
+builder.Services.AddScoped<IManageCartProduct, CartSystem>();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {
     options.LoginPath = new PathString("/Login");
@@ -37,6 +44,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseSession();
 
 app.UseRouting();
     

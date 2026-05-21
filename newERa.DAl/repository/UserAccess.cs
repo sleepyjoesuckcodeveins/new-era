@@ -28,7 +28,7 @@ public class UserAccess : IUserManagement
     public User? GetUser(User user)
     {
         // Code to retrieve a user from the database using _connectionString
-        string query = "SELECT Id, Username, Password, Email, Role FROM UserTable WHERE Email = @Email";
+        string query = "SELECT id, Username, Password, Email, Role FROM UserTable WHERE Email = @Email";
         // Implementation to execute the query and populate the user object
         return ExecuteSqlQuery(_connectionString, query, reader => new User
         {

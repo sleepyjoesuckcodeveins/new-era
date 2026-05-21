@@ -3,6 +3,7 @@ using NewEra.Domain.Models;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace NewEra.BLL
 {
     public class CartSystem : IManageCartProduct
@@ -12,19 +13,19 @@ namespace NewEra.BLL
          {
             this._cartRepository = cartRepository;
          }
-   
-        public void finalizeOrder(List<Cart> currentCart, int userId, bool TransactionSuccess)
+        public void FinalizeOrder(List<Cart> currentCart, int userId, bool transactionSuccess)
         {
-            if (TransactionSuccess ==  true)
+            if (transactionSuccess)
             {
-                var order = _cartRepository.SaveOrder(currentCart, userId);
-                Console.WriteLine($"Order saved successfully for user {userId} with total price {order.Price}");
+                _cartRepository.SaveOrder(currentCart, userId);
+                Console.WriteLine($"Order finalized for user {userId}.");
             }
             else
             {
                 Console.WriteLine("Transaction failed. Order not saved.");
             }
         }
+
        public List<Cart> addProduct(List<Cart> current, Product product, int quantity, int userId)
         {
             if (current == null)
@@ -38,8 +39,8 @@ namespace NewEra.BLL
             if (existingCartItem != null)
             {
                 existingCartItem.Quantity += quantity;
-                existingCartItem.Price += product.Price * quantity;
-                Console.WriteLine($"Updated {product.Name} in cart. New quantity: {existingCartItem.Quantity}, New total price: {existingCartItem.Price}");
+                existingCartItem.TotalPrice += product.Price * quantity;
+                Console.WriteLine($"Updated {product.Name} in cart. New quantity: {existingCartItem.Quantity}, New total price: {existingCartItem.TotalPrice}");
             }
             else
             {
@@ -47,12 +48,12 @@ namespace NewEra.BLL
                 {
                     ProductName = product.Name,
                     Quantity = quantity,
-                    Price = product.Price * quantity,
+                    TotalPrice = product.Price * quantity,
                     UserId = userId
                 };
 
                 current.Add(newCartItem);
-                Console.WriteLine($"Added {product.Name} to cart. Quantity: {quantity}, Total price: {newCartItem.Price}");
+                Console.WriteLine($"Added {product.Name} to cart. Quantity: {quantity}, Total price: {newCartItem.TotalPrice}");
             }
 
             return current;
