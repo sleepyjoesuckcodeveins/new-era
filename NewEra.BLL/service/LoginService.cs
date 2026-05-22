@@ -19,8 +19,10 @@ public User? Login(string email, string password)
 
         if (existingUser == null || existingUser.Password != password)
         {
+            System.Console.WriteLine("Login failed for email: " + email);
             return null; // Login failed
         }
+        System.Console.WriteLine("Login successful for email: " + email);
         return existingUser; // Return user with Id
     }
 

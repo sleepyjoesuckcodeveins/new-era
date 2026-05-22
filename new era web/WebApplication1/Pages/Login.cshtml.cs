@@ -59,7 +59,7 @@ public class LoginModel : PageModel
         {
             new Claim(ClaimTypes.Name, Input.Email),
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Role, "User") 
+            new Claim(ClaimTypes.Role, user.Role) 
         };
 
         var claimsIdentity = new ClaimsIdentity(
@@ -74,6 +74,6 @@ if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
         {
             return LocalRedirect(ReturnUrl);
         }
-        return LocalRedirect(Url.Content("~/"));
+        return RedirectToPage("/Index");
     }
 }

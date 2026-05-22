@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Pages;
 
-[Authorize( Roles = "Admin,User")]
+[Authorize( Roles = "user, admin")]
 public class IndexModel : PageModel
 {
      private NeweraProductService productService;
