@@ -12,19 +12,18 @@ public class LoginService
         _userManagement = userManagement;
     }
 
-    public bool Login(string email, string password)
+public User? Login(string email, string password)
     {
         var user = new User { Email = email, Password = password };
         var existingUser = _userManagement.GetUser(user);
 
         if (existingUser == null || existingUser.Password != password)
         {
-            return false; // Login failed
-        } else
-        {
-            return true; // Login successful
-        }  
-  
+            System.Console.WriteLine("Login failed for email: " + email);
+            return null; // Login failed
+        }
+        System.Console.WriteLine("Login successful for email: " + email);
+        return existingUser; // Return user with Id
     }
 
     public void Register(string username, string password, string email, string role)

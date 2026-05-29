@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Pages;
 
-[Authorize( Roles = "Admin,User")]
+[Authorize(Roles = "User")]
 public class IndexModel : PageModel
 {
      private NeweraProductService productService;
@@ -21,13 +21,11 @@ public class IndexModel : PageModel
     {
         this.productService = productService;
     }
-   
+    
 
     public void OnGet()
-
     {
-        //this part was done by ai.
-            Products = string.IsNullOrWhiteSpace(searchterm)
+        Products = string.IsNullOrWhiteSpace(searchterm)
             ? productService.GetAllProducts()
             : productService.SearchProduct(searchterm);
     }

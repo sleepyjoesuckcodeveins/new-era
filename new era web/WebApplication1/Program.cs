@@ -2,6 +2,8 @@ using NewEra.Domain.Interface;
 using NewEra.BLL;
 using NewEra.Dal;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
   
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,10 +18,20 @@ builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<IUserManagement>(provider => 
     new UserAccess(connectionString));
 
+builder.Services.AddScoped<ICart>(provider => 
+    new NewEraProducts(connectionString));
+builder.Services.AddScoped<IManageCartProduct, CartSystem>();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {
     options.LoginPath = new PathString("/Login");
-    options.AccessDeniedPath = new PathString("/Index");
+    options.AccessDeniedPath = new PathString("/Error");
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    options.Events = new CookieAuthenticationEvents();
+    options.Cookie.HttpOnly = true;
 });
 
 // Add services to the container.
@@ -37,6 +49,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseSession();
 
 app.UseRouting();
     

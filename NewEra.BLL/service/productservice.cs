@@ -21,6 +21,7 @@ public class NeweraProductService
     {
         return _productRepository.getProductById(id);
     }
+    
 
     public void GetProductByName(string name)
     {
@@ -41,6 +42,12 @@ public class NeweraProductService
         .OrderByDescending(r => r.Score)
         .Select(r => r.Product)
         .ToList();
+
+        
+    if (matchingProducts.Count == 0)
+    {
+        throw new Exception("No products found with the given name.");
+    }
         
 
 
