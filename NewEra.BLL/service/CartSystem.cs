@@ -34,7 +34,7 @@ namespace NewEra.BLL
                 Console.WriteLine("Cart was empty, created new cart.");
             }
 
-            var existingCartItem = current.FirstOrDefault(c => c.ProductName == product.Name);
+            var existingCartItem = current.FirstOrDefault(c => c.ProductID == product.Id && c.UserId == userId);
 
             if (existingCartItem != null)
             {
@@ -46,7 +46,9 @@ namespace NewEra.BLL
             {
                 var newCartItem = new Cart
                 {
+                    ProductID = product.Id,
                     ProductName = product.Name,
+                    Price = product.Price,
                     Quantity = quantity,
                     TotalPrice = product.Price * quantity,
                     UserId = userId
@@ -67,10 +69,11 @@ namespace NewEra.BLL
         public void deleteProduct(int id, List<Cart> current, int quantity)
         {
             // Code to delete a product from the cart by ID
-            var cartItem = current.FirstOrDefault(c => c.Id == id);
+            var cartItem = current.FirstOrDefault(c => c.ProductID  == id);
             if (cartItem != null)
             {
                 current.Remove(cartItem);
+
                 Console.WriteLine($"Deleted {cartItem.ProductName} from cart.");
             }
             else

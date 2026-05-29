@@ -83,6 +83,7 @@ public class NewEraProducts: IProduct, ICart
         
         SqlHelper.ExecuteNonReadableQuery(_connectionString, query, cmd => 
         {
+            
             cmd.Parameters.AddWithValue("@Product", product.Name);
             cmd.Parameters.AddWithValue("@Price", product.Price);
             cmd.Parameters.AddWithValue("@Quantity", product.Quantity); // Assuming Product model has Quantity

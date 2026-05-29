@@ -4,6 +4,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
 using NewEra.BLL;
 using NewEra.Domain.Models;
 
@@ -59,7 +60,7 @@ public class LoginModel : PageModel
         {
             new Claim(ClaimTypes.Name, Input.Email),
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Role, user.Role) 
+            new Claim(ClaimTypes.Role, char.ToUpper(user.Role[0]) + user.Role.Substring(1).ToLower()) 
         };
 
         var claimsIdentity = new ClaimsIdentity(
@@ -74,6 +75,14 @@ if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
         {
             return LocalRedirect(ReturnUrl);
         }
-        return RedirectToPage("/Index");
+        if(user.Role.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+        {
+            return RedirectToPage("/Privacy");
+            
+        }else if(user.Role.Equals("User", StringComparison.OrdinalIgnoreCase))
+        {
+            return RedirectToPage("/Index");
+        }
+        return Page();
     }
 }
