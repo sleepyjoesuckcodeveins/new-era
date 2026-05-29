@@ -21,6 +21,7 @@ public class NeweraProductService
     {
         return _productRepository.getProductById(id);
     }
+    
 
     public void GetProductByName(string name)
     {
