@@ -1,10 +1,10 @@
 using NewEra.Domain.Interface;
 using NewEra.Domain.Models;
+using NewEra.Dal;
 
 namespace NewEra.DAl.repository
 {
-    public class Admindal : IAdminInterface
-    {
+    public class Admindal : IAdminInterface  {
         private readonly string _connectionString;
         public Admindal(string connectionString)
         {
@@ -19,9 +19,9 @@ namespace NewEra.DAl.repository
                 
                 cmd.Parameters.AddWithValue("@Product", newProduct.Name);
                 cmd.Parameters.AddWithValue("@Price", newProduct.Price);
-                cmd.Parameters.AddWithValue("@Quantity", newProduct.Stock);
+                cmd.Parameters.AddWithValue("@Quantity", newProduct.Quantity);
                 cmd.Parameters.AddWithValue("@Category", newProduct.Category);
-                cmd.Parameters.AddWithValue("@Subcategory", newProduct.SubCategory);
+                cmd.Parameters.AddWithValue("@Subcategory", newProduct.Subcategory);
             });
             return newProduct;
         }
@@ -37,18 +37,18 @@ namespace NewEra.DAl.repository
             return new Product { Id = productId };
         }
 
-        public Product getLowestStockProduct()
+        public List<Product> getLowestStockProducts()
         {
-            string query = "SELECT top 10 *FROM products WHERE quantity <= 5 order by quantity asc ";
-            return SqlHelper.ReadSingle(_connectionString, query, reader => new Product
+            string query = "SELECT ProductID, Product, Price, Quantity_of_product, Category, Sub_Category FROM newworld_mockdata WHERE Quantity_of_product <= 5";
+            return NewEraProducts.ReadableSqlQuery(_connectionString, query, reader => new Product
             {
                 Id = reader.GetInt32(0),
                 Name = reader.GetString(1),
                 Price = reader.GetDecimal(2),
-                Stock = reader.GetInt32(3),
+                Quantity = reader.GetInt32(3),
                 Category = reader.GetString(4),
-                SubCategory = reader.GetString(5)
-            }, null);
+                Subcategory = reader.GetString(5)
+            });
         }
 
         public Product updateStock(int productId, int newStock)
@@ -60,7 +60,7 @@ namespace NewEra.DAl.repository
                 cmd.Parameters.AddWithValue("@NewStock", newStock);
                 cmd.Parameters.AddWithValue("@ProductId", productId);
             });
-            return new product { Id = productId, Stock = newStock };
+            return new Product { Id = productId, Quantity = newStock };
         }
     }
 }

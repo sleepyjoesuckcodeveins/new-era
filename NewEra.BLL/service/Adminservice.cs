@@ -17,9 +17,9 @@ namespace NewEra.BLL
           public Product addProduct(Product newProduct){
             return _adminRepository.addProduct(newProduct);
             }
-        public Product getLowestStockProduct()
+        public List<Product> getLowestStockProducts()
         {
-            return _adminRepository.getLowestStockProduct();
+            return _adminRepository.getLowestStockProducts();
         }
         public Product updateStock(int productId, int newStock){
             return _adminRepository.updateStock(productId, newStock);
@@ -28,6 +28,6 @@ namespace NewEra.BLL
         {
             _adminRepository.deleteProduct(productId);
         }
-    }
+            }
  
 }

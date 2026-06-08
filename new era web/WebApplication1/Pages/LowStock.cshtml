@@ -1,0 +1,42 @@
+@page
+@model WebApplication1.Pages.LowStockModel
+@{
+    ViewData["Title"] = "Low Stock Report";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>The following products have a stock quantity of 5 or less.</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Stock Quantity</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.LowStockProducts != null && Model.LowStockProducts.Any())
+        {
+            @foreach (var product in Model.LowStockProducts)
+            {
+                <tr>
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>@product.Category</td>
+                    <td>@product.Stock</td>
+                    <td>@product.Price.ToString("C")</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No products are currently low on stock.</td>
+            </tr>
+        }
+    </tbody>
+</table>
