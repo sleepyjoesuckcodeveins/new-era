@@ -81,7 +81,7 @@ public class NewEraProducts: IProduct, ICart
     {
         string query = "INSERT INTO newworld_mockdata (Product, Price, Quantity_of_product, Category, Sub_Category) VALUES (@Product, @Price, @Quantity, @Category, @Subcategory)";
         
-        SqlHelper.ExecuteNonReadableQuery(_connectionString, query, cmd => 
+        SqlHelper.Executecommand(_connectionString, query, cmd => 
         {
             
             cmd.Parameters.AddWithValue("@Product", product.Name);

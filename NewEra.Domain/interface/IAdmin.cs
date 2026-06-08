@@ -2,11 +2,11 @@
 using NewEra.Domain.Models;
 namespace NewEra.Domain.Interface
 {
-    public interface IAdmin
+    public interface IAdminInterface
     {
-        public product addProduct(product newProduct);
-        public product getLowestStockProduct();
-        public product updateStock(int productId, int newStock);
+        public Product addProduct(Product newProduct);
+        public Product getLowestStockProduct();
+        public Product updateStock(int productId, int newStock);
         public void deleteProduct(int productId);
  
     }
