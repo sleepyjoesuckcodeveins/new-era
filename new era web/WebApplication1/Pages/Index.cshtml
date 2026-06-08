@@ -34,9 +34,12 @@
                             <h6 class="card-title text-truncate mb-2">@product.Name</h6>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="price-text">$@product.Price.ToString("0.00")</span>
-                                <button class="btn btn-brand-orange btn-sm rounded-circle">
-                                    <i class="bi bi-plus"></i> +
-                                </button>
+                                <form method="post" asp-page="Cart" asp-page-handler="AddToCart">
+                                    <input type="hidden" name="productId" value="@product.Id" />
+                                    <button type="submit" class="btn btn-brand-orange btn-sm rounded-circle">
+                                        <i class="bi bi-plus"></i> +
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>

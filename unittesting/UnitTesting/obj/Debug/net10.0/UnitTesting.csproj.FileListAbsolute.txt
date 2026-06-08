@@ -149,3 +149,4 @@ C:\Users\nathan\new era\unittesting\UnitTesting\obj\Debug\net10.0\refint\UnitTes
 C:\Users\nathan\new era\unittesting\UnitTesting\obj\Debug\net10.0\UnitTesting.pdb
 C:\Users\nathan\new era\unittesting\UnitTesting\obj\Debug\net10.0\UnitTesting.genruntimeconfig.cache
 C:\Users\nathan\new era\unittesting\UnitTesting\obj\Debug\net10.0\ref\UnitTesting.dll
+C:\Users\nathan\new era\unittesting\UnitTesting\bin\Debug\net10.0\Stripe.net.dll

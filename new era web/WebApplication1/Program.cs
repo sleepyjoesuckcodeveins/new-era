@@ -1,6 +1,9 @@
 using NewEra.Domain.Interface;
 using NewEra.BLL;
 using NewEra.Dal;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
   
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +12,27 @@ string connectionString = "Server=mssqlstud.fhict.local;Database=dbi578294_newwo
 
 builder.Services.AddScoped<IProduct>(_ => new NewEraProducts(connectionString));
 builder.Services.AddScoped<NeweraProductService>();
+builder.Services.AddScoped<LoginService>();
+
+// In Program.cs
+builder.Services.AddScoped<IUserManagement>(provider => 
+    new UserAccess(connectionString));
+
+builder.Services.AddScoped<ICart>(provider => 
+    new NewEraProducts(connectionString));
+builder.Services.AddScoped<IManageCartProduct, CartSystem>();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+{
+    options.LoginPath = new PathString("/Login");
+    options.AccessDeniedPath = new PathString("/Error");
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    options.Events = new CookieAuthenticationEvents();
+    options.Cookie.HttpOnly = true;
+});
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -26,8 +50,11 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseRouting();
+app.UseSession();
 
+app.UseRouting();
+    
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
