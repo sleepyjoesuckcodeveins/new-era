@@ -4,7 +4,8 @@ using NewEra.Dal;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
-  
+using NewEra.DAl.repository;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,9 @@ string connectionString = "Server=mssqlstud.fhict.local;Database=dbi578294_newwo
 builder.Services.AddScoped<IProduct>(_ => new NewEraProducts(connectionString));
 builder.Services.AddScoped<NeweraProductService>();
 builder.Services.AddScoped<LoginService>();
+
+builder.Services.AddScoped<IAdminInterface>(_ => new Admindal(connectionString));
+builder.Services.AddScoped<Adminservice>();
 
 // In Program.cs
 builder.Services.AddScoped<IUserManagement>(provider => 

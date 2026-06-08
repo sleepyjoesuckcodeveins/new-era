@@ -40,12 +40,12 @@ namespace NewEra.DAl.repository
         public List<Product> getLowestStockProducts()
         {
             string query = "SELECT ProductID, Product, Price, Quantity_of_product, Category, Sub_Category FROM newworld_mockdata WHERE Quantity_of_product <= 5";
-            return NewEraProducts.ReadableSqlQuery(_connectionString, query, reader => new Product
+            return SqlHelper.ReadableSqlQuery(_connectionString, query, reader => new Product
             {
-                Id = reader.GetInt32(0),
+                Id = Convert.ToInt32(reader.GetValue(0)),
                 Name = reader.GetString(1),
                 Price = reader.GetDecimal(2),
-                Quantity = reader.GetInt32(3),
+                Quantity = Convert.ToInt32(reader.GetValue(3)),
                 Category = reader.GetString(4),
                 Subcategory = reader.GetString(5)
             });

@@ -12,32 +12,13 @@ public class NewEraProducts: IProduct, ICart
         _connectionString = connectionString;
     }
 
-    public static List<T> ReadableSqlQuery<T>(string connectionString, string query, Func<SqlDataReader, T> map, Action<SqlParameterCollection> addParameters = null)
-    {
-        List<T> results = new List<T>();
-
-        using (SqlConnection conn = new SqlConnection(connectionString))
-        using (SqlCommand cmd = new SqlCommand(query, conn))
-        {
-            addParameters?.Invoke(cmd.Parameters);
-            conn.Open();
-            using (SqlDataReader reader = cmd.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    results.Add(map(reader));
-                }
-            }
-        }
-
-        return results;
-    }
+   
 
    public List<Product> getAllProducts()
     {
         string query = "SELECT ProductID, Product, Price FROM newworld_mockdata";
 
-        return ReadableSqlQuery(_connectionString, query, reader => new Product
+        return SqlHelper.ReadableSqlQuery(_connectionString, query, reader => new Product
         {
             Id = reader.GetInt32(0),
             Name = reader.GetString(1),
@@ -49,7 +30,7 @@ public class NewEraProducts: IProduct, ICart
     {
         string query = "SELECT ProductID, Product, Price FROM newworld_mockdata WHERE Product = @Name";
         
-        var products = ReadableSqlQuery(_connectionString, query, 
+        var products = SqlHelper.ReadableSqlQuery(_connectionString, query, 
             reader => new Product
             {
                 Id = reader.GetInt32(0),
@@ -65,7 +46,7 @@ public class NewEraProducts: IProduct, ICart
     {
         string query = "SELECT ProductID, Product, Price FROM newworld_mockdata WHERE ProductID = @Id";
         
-        var products = ReadableSqlQuery(_connectionString, query, 
+        var products = SqlHelper.ReadableSqlQuery(_connectionString, query, 
             reader => new Product
             {
                 Id = reader.GetInt32(0),
@@ -97,7 +78,7 @@ public class NewEraProducts: IProduct, ICart
     {
         string query = "SELECT ProductID, Product, Price FROM newworld_mockdata WHERE Product LIKE @Name";
         
-        return ReadableSqlQuery(_connectionString, query, 
+        return SqlHelper.ReadableSqlQuery(_connectionString, query, 
             reader => new Product
             {
                 Id = reader.GetInt32(0),

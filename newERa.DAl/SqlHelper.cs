@@ -32,6 +32,27 @@ namespace NewEra.Dal
         }
         return default; 
     }
+     public static List<T> ReadableSqlQuery<T>(string connectionString, string query, Func<SqlDataReader, T> map, Action<SqlParameterCollection> addParameters = null)
+    {
+        List<T> results = new List<T>();
+
+        using (SqlConnection conn = new SqlConnection(connectionString))
+        using (SqlCommand cmd = new SqlCommand(query, conn))
+        {
+            addParameters?.Invoke(cmd.Parameters);
+            conn.Open();
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    results.Add(map(reader));
+                }
+            }
+        }
+
+        return results;
     }
+    }
+    
 
 }
