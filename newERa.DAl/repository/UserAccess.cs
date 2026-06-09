@@ -15,7 +15,7 @@ public class UserAccess : IUserManagement
     public void RegisterUser(User user)
     {
         // Code to register a new user in the database using _connectionString
-        string query = "INSERT INTO UserTable (Username, Password, Email, Role) VALUES (@Username, @Password, @Email, @Role)";
+        string query = "INSERT INTO Users (Username, Password, Email, Role) VALUES (@Username, @Password, @Email, @Role)";
         ExecuteNonReadableQuery(_connectionString, query, cmd =>
         {
             cmd.Parameters.AddWithValue("@Username", user.Username);
@@ -28,7 +28,7 @@ public class UserAccess : IUserManagement
     public User? GetUser(User user)
     {
         // Code to retrieve a user from the database using _connectionString
-        string query = "SELECT id, Username, Password, Email, Role FROM UserTable WHERE Email = @Email";
+        string query = "SELECT id, Username, Password, Email, Role FROM Users WHERE Email = @Email";
         // Implementation to execute the query and populate the user object
         return ExecuteSqlQuery(_connectionString, query, reader => new User
         {
