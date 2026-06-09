@@ -23,13 +23,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
+                       
                           @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/LowStock">Low Stock Report</a>
+                            </li>
+                             <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Admin Services</a>
                             </li>
                         }
                     </ul>

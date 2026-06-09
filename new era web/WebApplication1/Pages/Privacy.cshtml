@@ -1,8 +1,95 @@
 ﻿@page
-@model PrivacyModel
+@model WebApplication1.Pages.PrivacyModel
 @{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Admin - Product Management";
 }
+
 <h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<hr />
+
+<!-- Add Product Form -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h2>Add New Product</h2>
+    </div>
+    <div class="card-body">
+        <form method="post" asp-page-handler="AddProduct">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="NewProduct.Name" class="form-label">Product Name</label>
+                    <input asp-for="NewProduct.Name" class="form-control" placeholder="e.g., carrot" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="NewProduct.Price" class="form-label"></label>
+                    <input asp-for="NewProduct.Price" class="form-control" type="number" step="0.01" min="0" placeholder="e.g., 999.99" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="NewProduct.Quantity" class="form-label">Stock Quantity</label>
+                    <input asp-for="NewProduct.Quantity" class="form-control" type="number" min="0"placeholder="e.g., 50" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="NewProduct.Category" class="form-label"></label>
+                    <input asp-for="NewProduct.Category" class="form-control" placeholder="e.g., fresh produce" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="NewProduct.Subcategory" class="form-label"></label>
+                    <input asp-for="NewProduct.Subcategory" class="form-control" placeholder="e.g., vegetables" />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Product</button>
+        </form>
+    </div>
+</div>
+
+<!-- Product List Table -->
+<div class="card">
+    <div class="card-header">
+        <h2>Existing Products</h2>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th style="width: 250px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.AllProducts)
+                {
+                    <tr>
+                        <td>@product.Id</td>
+                        <td>@product.Name</td>
+                        <td>@product.Category</td>
+                        <td>@product.Price.ToString("C")</td>
+                        <td>@product.Quantity</td>
+                        <td>
+                            <div class="d-flex">
+                                <!-- Update Stock Form -->
+                                <form method="post" asp-page-handler="UpdateStock" class="d-inline-flex me-2">
+                                    <input type="hidden" name="productId" value="@product.Id" />
+                                    <input type="number" name="newStock" class="form-control form-control-sm" style="width: 80px;" value="@product.Quantity" />
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary ms-1">Update</button>
+                                </form>
+                                
+                                <!-- Delete Form -->
+                                <form method="post" asp-page-handler="DeleteProduct" class="d-inline-flex">
+                                    <input type="hidden" name="productId" value="@product.Id" />
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
