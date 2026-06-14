@@ -7,7 +7,7 @@ using NewEra.Domain.Models;
 namespace WebApplication1.Pages;
 
 [Authorize(Roles = "Admin")]
-public class PrivacyModel : PageModel
+public class AdminHomeModel : PageModel
 {
     private readonly Adminservice _adminService;
 
@@ -15,10 +15,9 @@ public class PrivacyModel : PageModel
     [BindProperty]
     public Product NewProduct { get; set; }
 
-    public PrivacyModel(Adminservice adminService)
+    public AdminHomeModel(Adminservice adminService)
     {
         _adminService = adminService;
-       
     }
 
     public void OnGet()

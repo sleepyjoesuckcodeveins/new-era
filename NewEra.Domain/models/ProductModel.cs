@@ -8,6 +8,7 @@ public class Product
     public int Quantity { get; set; }
     public string Category { get; set; }
     public string Subcategory { get; set; }
+    public int SubcategoryID { get; set; }
     public decimal totalPrice { get; set; }
 
 

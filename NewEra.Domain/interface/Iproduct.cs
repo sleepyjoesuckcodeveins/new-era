@@ -9,7 +9,7 @@ public interface IProduct
 
     public List<Product> searchProduct(string name);
     
-    public void addProduct(Product product);
+
     
    
 }

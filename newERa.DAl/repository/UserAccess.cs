@@ -32,11 +32,11 @@ public class UserAccess : IUserManagement
         // Implementation to execute the query and populate the user object
         return ExecuteSqlQuery(_connectionString, query, reader => new User
         {
-            Id = reader.GetInt32(0),
-            Username = reader.GetString(1),
-            Password = reader.GetString(2),
-            Email = reader.GetString(3),
-            Role = reader.GetString(4)
+            Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+            Username = reader.IsDBNull(1) ? string.Empty : reader.GetString(1),
+            Password = reader.IsDBNull(2) ? string.Empty : reader.GetString(2),
+            Email = reader.IsDBNull(3) ? string.Empty : reader.GetString(3),
+            Role = reader.IsDBNull(4) ? string.Empty : reader.GetString(4)
         }, user);
     }
 

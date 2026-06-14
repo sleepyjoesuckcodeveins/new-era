@@ -60,7 +60,7 @@ public class LoginModel : PageModel
         {
             new Claim(ClaimTypes.Name, Input.Email),
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Role, char.ToUpper(user.Role[0]) + user.Role.Substring(1).ToLower()) 
+            new Claim(ClaimTypes.Role, char.ToUpper(user.Role[0]) + user.Role.Substring(1).ToLower())
         };
 
         var claimsIdentity = new ClaimsIdentity(
@@ -70,19 +70,19 @@ public class LoginModel : PageModel
         await HttpContext.SignInAsync(
             CookieAuthenticationDefaults.AuthenticationScheme,
             new ClaimsPrincipal(claimsIdentity));
+            //hide it behind available for know login user 
 
-if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
-        {
-            return LocalRedirect(ReturnUrl);
-        }
-        if(user.Role.Equals("Admin", StringComparison.OrdinalIgnoreCase))
-        {
-            return RedirectToPage("/Privacy");
+                    if(user.Role.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+                    {
+                       
+                        return RedirectToPage("/AdminHome");
+                        
+                    }else if(user.Role.Equals("User", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return RedirectToPage("/Index");
+                    }
+                    return Page();
+                    //make enums for the roles or static cinstant string 
+                }
             
-        }else if(user.Role.Equals("User", StringComparison.OrdinalIgnoreCase))
-        {
-            return RedirectToPage("/Index");
-        }
-        return Page();
-    }
 }

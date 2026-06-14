@@ -20,9 +20,9 @@ public class NewEraProducts: IProduct, ICart
 
         return SqlHelper.ReadableSqlQuery(_connectionString, query, reader => new Product
         {
-            Id = reader.GetInt32(0),
-            Name = reader.GetString(1),
-            Price = reader.GetDecimal(2)
+            Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+            Name = reader.IsDBNull(1) ? string.Empty : reader.GetString(1),
+            Price = reader.IsDBNull(2) ? 0 : reader.GetDecimal(2)
         });    
     }
     
@@ -58,21 +58,7 @@ public class NewEraProducts: IProduct, ICart
         return products.FirstOrDefault();
     }
 
-    public void addProduct(Product product)
-    {
-        string query = "INSERT INTO Product (Product, Price, Quantity_of_product, Category, Sub_Category) VALUES (@Product, @Price, @Quantity, @Category, @Subcategory)";
-        
-        SqlHelper.Executecommand(_connectionString, query, cmd => 
-        {
-            
-            cmd.Parameters.AddWithValue("@Product", product.Name);
-            cmd.Parameters.AddWithValue("@Price", product.Price);
-            cmd.Parameters.AddWithValue("@Quantity", product.Quantity); // Assuming Product model has Quantity
-            cmd.Parameters.AddWithValue("@Category", product.Category); // Assuming Product model has Category
-            cmd.Parameters.AddWithValue("@Subcategory", product.Subcategory); // Assuming Product model has SubCategory
-            cmd.ExecuteNonQuery();
-        });
-    }
+
     
     public List<Product> searchProduct(string name)
     {
