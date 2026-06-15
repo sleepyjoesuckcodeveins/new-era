@@ -12,7 +12,14 @@ namespace NewEra.DAl.repository
         }
         public Product addProduct(Product newProduct)
         {
-            string query = "INSERT INTO Product (Product, Price, Quantity_of_product, SubCategoryID) VALUES (@Product, @Price, @Quantity, @SubCategoryID)";
+               string query = @"
+                INSERT INTO Product (Product, Price, Quantity_of_product, SubCategoryID)
+                VALUES (
+                    @Product,
+                    @Price,
+                    @Quantity,
+                    (SELECT SubCategoryID FROM SubCategory WHERE SubCategoryName = @SubCategoryName)
+                )";
             
             SqlHelper.Executecommand(_connectionString, query, cmd => 
             {
@@ -20,6 +27,7 @@ namespace NewEra.DAl.repository
                 cmd.Parameters.AddWithValue("@Product", newProduct.Name);
                 cmd.Parameters.AddWithValue("@Price", newProduct.Price);
                 cmd.Parameters.AddWithValue("@Quantity", newProduct.Quantity);
+                cmd.Parameters.AddWithValue("@SubCategoryName", newProduct.Subcategory); // or appropriate property
                 cmd.Parameters.AddWithValue("@SubCategoryID", newProduct.SubcategoryID);
             });
             return newProduct;
